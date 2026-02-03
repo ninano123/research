@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gachi Wallet 검증 보고서</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --danger-color: #dc2626;
+            --success-color: #16a34a;
+            --warning-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .alert {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .alert-danger {
+            background-color: #fef2f2;
+            border-left: 4px solid var(--danger-color);
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--warning-color);
+            color: #92400e;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .card h3 {
+            color: var(--text-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-danger {
+            background-color: #fef2f2;
+            color: var(--danger-color);
+        }
+
+        .status-success {
+            background-color: #f0fdf4;
+            color: var(--success-color);
+        }
+
+        .status-warning {
+            background-color: #fffbeb;
+            color: var(--warning-color);
+        }
+
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .check-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .check-list li:last-child {
+            border-bottom: none;
+        }
+
+        .icon-x {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        .icon-check {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--danger-color);
+        }
+
+        .stat-card.warning .stat-number {
+            color: var(--warning-color);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 2px;
+            margin: 3rem 0;
+        }
+
+        .recommendation-box {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .recommendation-box h4 {
+            color: #0369a1;
+            margin-bottom: 1rem;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .github-link:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tech-comparison {
+            margin-top: 1rem;
+        }
+
+        .conclusion-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid var(--danger-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .conclusion-box h3 {
+            color: var(--danger-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        /* 테이블 반응형 래퍼 */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1rem 0;
+        }
+
+        .table-wrapper table {
+            margin: 0;
+            min-width: 600px;
+        }
+
+        /* 모바일 카드 스타일 테이블 */
+        .mobile-cards {
+            display: none;
+        }
+
+        .mobile-card-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-card-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .mobile-card-item .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-card-item .row:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-card-item .label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .mobile-card-item .value {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* 태블릿 */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+            }
+        }
+
+        /* 모바일 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+                border-radius: 8px;
+            }
+
+            .card h2 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .card h3 {
+                font-size: 1.1rem;
+            }
+
+            .alert {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .alert-icon {
+                font-size: 1.25rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            /* 테이블 모바일 처리 */
+            .table-wrapper table {
+                min-width: 500px;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 0.5rem 0.4rem;
+            }
+
+            .status-badge {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .github-link {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .check-list li {
+                font-size: 0.9rem;
+                padding: 0.5rem 0;
+            }
+
+            .recommendation-box {
+                padding: 1rem;
+            }
+
+            .recommendation-box ol {
+                margin-left: 1rem !important;
+                font-size: 0.9rem;
+            }
+
+            .conclusion-box {
+                padding: 1.25rem;
+            }
+
+            .conclusion-box h3 {
+                font-size: 1.1rem;
+            }
+
+            .conclusion-box h4 {
+                font-size: 1rem;
+            }
+
+            .conclusion-box ul {
+                margin-left: 1rem !important;
+                font-size: 0.9rem;
+            }
+
+            .conclusion-box table td {
+                display: block;
+                width: 100% !important;
+                padding: 0.5rem 0;
+            }
+
+            .conclusion-box table td:first-child {
+                padding-bottom: 0.25rem;
+            }
+
+            .section-divider {
+                margin: 2rem 0;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* 소형 모바일 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            header {
+                padding: 1.5rem 0.75rem;
+            }
+
+            header h1 {
+                font-size: 1.25rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            .stat-label {
+                font-size: 0.875rem;
+            }
+
+            .table-wrapper table {
+                min-width: 400px;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            th, td {
+                padding: 0.4rem 0.3rem;
+            }
+
+            .alert {
+                font-size: 0.9rem;
+            }
+
+            .check-list li {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* 다크모드 지원 (선택적) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --card-bg: #1e293b;
+                --text-color: #f1f5f9;
+                --text-muted: #94a3b8;
+                --border-color: #334155;
+            }
+
+            th {
+                background-color: #334155;
+            }
+
+            tr:hover {
+                background-color: #334155;
+            }
+
+            .status-danger {
+                background-color: #450a0a;
+            }
+
+            .status-success {
+                background-color: #052e16;
+            }
+
+            .status-warning {
+                background-color: #451a03;
+            }
+
+            .alert-danger {
+                background-color: #450a0a;
+                color: #fecaca;
+            }
+
+            .alert-warning {
+                background-color: #451a03;
+                color: #fef3c7;
+            }
+
+            .stat-card {
+                background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+            }
+
+            .stat-card.warning {
+                background: linear-gradient(135deg, #451a03 0%, #78350f 100%);
+            }
+
+            .recommendation-box {
+                background: #0c4a6e;
+                border-color: #0369a1;
+            }
+
+            .recommendation-box h4 {
+                color: #7dd3fc;
+            }
+
+            .conclusion-box {
+                background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+            }
+
+            .github-link {
+                border-color: #60a5fa;
+                color: #60a5fa;
+            }
+
+            .github-link:hover {
+                background: #2563eb;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gachi Wallet 검증 보고서</h1>
+        <p>의료 AI 회사 주장에 대한 종합 조사 결과</p>
+    </header>
+
+    <div class="container">
+        <!-- 핵심 요약 알림 -->
+        <div class="alert alert-danger">
+            <span class="alert-icon">⚠️</span>
+            <div>
+                <strong>핵심 결론:</strong> "Gachi Wallet"은 검증 가능한 사업체로 존재하지 않는 것으로 보입니다.
+                20개 이상의 플랫폼과 데이터베이스 검색 결과, 이 회사의 정당성을 확인하는 증거는 전혀 발견되지 않았습니다.
+            </div>
+        </div>
+
+        <!-- 요약 통계 -->
+        <div class="grid-2">
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">발견된 증거 수</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">검색된 플랫폼/DB 수</div>
+            </div>
+        </div>
+
+        <!-- 섹션 1: 검증 채널 분석 -->
+        <div class="card">
+            <h2>1. 검증 채널별 조사 결과</h2>
+            <p>다음 플랫폼 및 데이터베이스에서 "Gachi Wallet" 관련 정보를 검색했습니다:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>검색 채널</th>
+                        <th>검색 유형</th>
+                        <th>결과</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Crunchbase</td>
+                        <td>기업 정보</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>LinkedIn</td>
+                        <td>회사/직원 프로필</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>USPTO</td>
+                        <td>특허 기록</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>GitHub</td>
+                        <td>소스코드/저장소</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>Google Scholar</td>
+                        <td>학술 출판물</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>G2/Capterra/Trustpilot</td>
+                        <td>제품 리뷰</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>Better Business Bureau</td>
+                        <td>사업자 인증</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>HIMSS / Healthcare IT News</td>
+                        <td>의료 IT 출판물</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>SEC 제출 서류</td>
+                        <td>규제 문서</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td>HHS Office for Civil Rights</td>
+                        <td>HIPAA 등재</td>
+                        <td><span class="status-badge status-danger">정보 없음</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>발견되지 않은 필수 항목</h3>
+            <ul class="check-list">
+                <li><span class="icon-x">✗</span> 미국 어느 주에도 사업자 등록 기록 없음</li>
+                <li><span class="icon-x">✗</span> 공식 웹사이트 (gachiwallet.com 등) 없음</li>
+                <li><span class="icon-x">✗</span> 창립자, 임원, 팀 구성원 정보 없음</li>
+                <li><span class="icon-x">✗</span> LinkedIn 회사 페이지 없음</li>
+                <li><span class="icon-x">✗</span> 소셜 미디어 계정 (Twitter/X, Facebook) 없음</li>
+                <li><span class="icon-x">✗</span> API 문서 또는 기술 백서 없음</li>
+            </ul>
+        </div>
+
+        <!-- 섹션 2: 기술적 주장 분석 -->
+        <div class="card">
+            <h2>2. 기술적 주장 분석</h2>
+            <p>프레젠테이션에 언급된 기술들의 실제 존재 여부와 Gachi Wallet과의 연결성을 분석했습니다:</p>
+
+            <table class="tech-comparison">
+                <thead>
+                    <tr>
+                        <th>기술명</th>
+                        <th>실제 존재 여부</th>
+                        <th>설명</th>
+                        <th>Gachi Wallet 연결</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GEMMA (구글 LLM)</strong></td>
+                        <td><span class="status-badge status-success">✓ 실제 존재</span></td>
+                        <td>구글의 오픈소스 모델 제품군</td>
+                        <td><span class="status-badge status-danger">증거 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>MCP (Model Context Protocol)</strong></td>
+                        <td><span class="status-badge status-success">✓ 실제 존재</span></td>
+                        <td>Anthropic 주도 표준</td>
+                        <td><span class="status-badge status-danger">증거 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>FHIR 의료 표준</strong></td>
+                        <td><span class="status-badge status-success">✓ 실제 존재</span></td>
+                        <td>확립된 HL7 상호운용성 프로토콜</td>
+                        <td><span class="status-badge status-danger">증거 없음</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>MCP-FHIR 통합</strong></td>
+                        <td><span class="status-badge status-success">✓ 실제 존재</span></td>
+                        <td>The Momentum, WSO2 등이 구현</td>
+                        <td><span class="status-badge status-danger">증거 없음</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+                <span class="alert-icon">💡</span>
+                <div>
+                    <strong>분석 결과:</strong> 언급된 기술들은 모두 실제로 존재하는 합법적인 기술이지만,
+                    Gachi Wallet이 이를 실제로 구현했다는 증거(GitHub 저장소, API 문서, 기술 백서 등)는 전혀 없습니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- 섹션 3: HIPAA 및 규제 준수 -->
+        <div class="card">
+            <h2>3. HIPAA 및 규제 준수 검증</h2>
+            <p>"지난 2년간 HIPAA 준수" 주장에 대한 검증 결과:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>규제 요구사항</th>
+                        <th>검증 결과</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HIPAA 인증 또는 감사 보고서</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>공개된 인증 문서 없음</td>
+                    </tr>
+                    <tr>
+                        <td>Business Associate Agreement (BAA)</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>문서화된 계약 없음</td>
+                    </tr>
+                    <tr>
+                        <td>HHS Office for Civil Rights 등재</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>데이터베이스에 등재되지 않음</td>
+                    </tr>
+                    <tr>
+                        <td>21st Century Cures Act ONC 인증</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>Health IT 인증 없음</td>
+                    </tr>
+                    <tr>
+                        <td>FDA 승인</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>의료기기 승인 없음</td>
+                    </tr>
+                    <tr>
+                        <td>주(State) 의료 인증</td>
+                        <td><span class="status-badge status-danger">미발견</span></td>
+                        <td>어느 주에서도 인증 없음</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 섹션 4: 유사 이름 회사 -->
+        <div class="card">
+            <h2>4. 유사 이름의 기존 회사</h2>
+            <p>검색 중 발견된 유사 이름의 회사들 (의료 AI 지갑과 무관):</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>회사명</th>
+                        <th>위치</th>
+                        <th>업종</th>
+                        <th>연관성</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GACHI LABS</td>
+                        <td>한국</td>
+                        <td>데이터 회사</td>
+                        <td><span class="status-badge status-danger">무관</span></td>
+                    </tr>
+                    <tr>
+                        <td>GACHI CORPORATION, INC.</td>
+                        <td>캘리포니아, 미국</td>
+                        <td>수출입 회사</td>
+                        <td><span class="status-badge status-danger">무관</span></td>
+                    </tr>
+                    <tr>
+                        <td>조지아 청각장애인 비영리</td>
+                        <td>조지아, 미국</td>
+                        <td>비영리 단체</td>
+                        <td><span class="status-badge status-danger">무관</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 섹션 5: 실제 구현된 기술 대안 -->
+        <div class="card">
+            <h2>5. 동일 아키텍처의 실제 오픈소스 프로젝트</h2>
+            <p>발표에서 보여진 아키텍처(로컬 LLM + MCP 클라이언트 + FHIR MCP 서버)는 이미 여러 오픈소스로 구현되어 있습니다:</p>
+
+            <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+                <span class="alert-icon">📅</span>
+                <div>
+                    <strong>MCP 표준 공개 시점:</strong> Anthropic이 Model Context Protocol(MCP)을 <strong>2024년 11월 25일</strong>에 오픈소스로 공개했습니다.
+                    아래 모든 FHIR-MCP 프로젝트들은 이 이후에 개발되었습니다.
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>프로젝트</th>
+                        <th>개발자/조직</th>
+                        <th>공개 시점</th>
+                        <th>주요 기능</th>
+                        <th>링크</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>health-record-mcp</strong></td>
+                        <td>Josh Mandel<br><small style="color: var(--text-muted);">(Microsoft Healthcare / Harvard)</small></td>
+                        <td><span class="status-badge status-success">2025년 초</span></td>
+                        <td>SMART on FHIR로 EHR 연결, MCP 서버로 데이터 노출</td>
+                        <td><a href="https://github.com/jmandel/health-record-mcp" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>azure-fhir-mcp-server</strong></td>
+                        <td>Erik Howard</td>
+                        <td><span class="status-badge status-success">2024년 12월 20일</span></td>
+                        <td>Azure Health Data Services FHIR를 MCP로 노출</td>
+                        <td><a href="https://github.com/erikhoward/azure-fhir-mcp-server" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>fhir-mcp-server</strong></td>
+                        <td>WSO2</td>
+                        <td><span class="status-badge status-success">2025년 상반기</span><br><small style="color: var(--text-muted);">최종 업데이트: 2025.10</small></td>
+                        <td>FHIR 서버를 MCP 서버로 래핑, 다양한 트랜스포트 지원</td>
+                        <td><a href="https://github.com/wso2/fhir-mcp-server" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fhir-MCP</strong></td>
+                        <td>Kushagra Dutta</td>
+                        <td><span class="status-badge status-success">2025년 중반</span><br><small style="color: var(--text-muted);">리뷰 기준: 2025.10</small></td>
+                        <td>멀티 FHIR 서버 통합, 자동 헬스체크, AI 기반 분석</td>
+                        <td><a href="https://github.com/Kushagra-Dutta/Fhir-MCP" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>fhir-mcp-server</strong></td>
+                        <td>The Momentum</td>
+                        <td><span class="status-badge status-success">2025년 9월 30일</span><br><small style="color: var(--text-muted);">v1.0: 2025.11.27</small></td>
+                        <td>FHIR CRUD, AI 문서 처리, 시맨틱 검색</td>
+                        <td><a href="https://github.com/the-momentum/fhir-mcp-server" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>fhir-mcp (Enhanced)</strong></td>
+                        <td>jcafazzo</td>
+                        <td><span class="status-badge status-success">2025년</span></td>
+                        <td>데이터 품질 평가, 고급 오류 처리</td>
+                        <td><a href="https://github.com/jcafazzo/fhir-mcp" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>MCP-on-FHIR</strong></td>
+                        <td>TerminallyLazy</td>
+                        <td><span class="status-badge status-success">2025년</span><br><small style="color: var(--text-muted);">최근 업데이트: 2026.01</small></td>
+                        <td>MCP-FHIR 연동 예제, Knowledge Graph</td>
+                        <td><a href="https://github.com/TerminallyLazy/MCP-on-FHIR" class="github-link" target="_blank">GitHub</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>MCP-FHIR 생태계 타임라인</h3>
+            <div style="background: #f8fafc; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
+                <table style="margin: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;">시점</th>
+                            <th>이벤트</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>2024년 11월 25일</strong></td>
+                            <td>Anthropic, MCP(Model Context Protocol) 오픈소스 공개</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024년 12월</strong></td>
+                            <td>첫 FHIR-MCP 구현체 등장 (azure-fhir-mcp-server)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2025년 초</strong></td>
+                            <td>Josh Mandel의 health-record-mcp 공개 (SMART on FHIR 통합)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2025년 상반기</strong></td>
+                            <td>WSO2, 기업용 fhir-mcp-server 공개</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2025년 9~11월</strong></td>
+                            <td>The Momentum, 풀스택 FHIR MCP 서버 v1.0 릴리스</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2025년 12월</strong></td>
+                            <td>Anthropic, MCP를 Linux Foundation (AAIF)에 기증</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>슬라이드 아키텍처 매핑</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>슬라이드 구성 요소</th>
+                        <th>대응 오픈소스/제품</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Local LLM + NLP UI (폰)</td>
+                        <td>Claude Desktop, 로컬 OpenAI/LLM 래퍼 + MCP 클라이언트</td>
+                    </tr>
+                    <tr>
+                        <td>MCP Client</td>
+                        <td>Claude Desktop / VS Code MCP 클라이언트 설정</td>
+                    </tr>
+                    <tr>
+                        <td>MCP Server (FHIR)</td>
+                        <td>jmandel/health-record-mcp, wso2/fhir-mcp-server</td>
+                    </tr>
+                    <tr>
+                        <td>FHIR RWE DATA / EHR</td>
+                        <td>LinuxForHealth FHIR, HAPI FHIR, Epic/Cerner FHIR</td>
+                    </tr>
+                    <tr>
+                        <td>21st Century Cures Act</td>
+                        <td>FHIR/SMART on FHIR 기반 미국 EHR API 생태계</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="recommendation-box">
+                <h4>실무 테스트 권장 방법</h4>
+                <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><code>jmandel/health-record-mcp</code>를 로컬에서 실행</li>
+                    <li>Claude Desktop 또는 VS Code MCP 클라이언트에 서버 등록</li>
+                    <li>공개 HAPI FHIR 서버나 Epic Sandbox에 연결</li>
+                    <li>자연어로 의료 데이터 조회 테스트</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 섹션 6: 참여 전 필수 확인 사항 -->
+        <div class="card">
+            <h2>6. 참여 전 필수 검증 체크리스트</h2>
+            <p>이 회사와 관계를 맺기 전 반드시 확인해야 할 항목:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>필수 문서</th>
+                        <th>확인 방법</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>법인 설립 증명서</td>
+                        <td>Certificate of Incorporation 요청</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>팀 구성원 자격 증명</td>
+                        <td>LinkedIn 프로필 및 이력 검증</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>HIPAA 준수 문서</td>
+                        <td>정책, 위험 평가, BAA 요청</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>라이브 제품 시연</td>
+                        <td>실제 작동하는 데모 요청</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>고객 참조</td>
+                        <td>실제 의료 기관 연락처 확인</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>규제 승인 증명</td>
+                        <td>FDA, 주 인증 문서 요청</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>사무실 주소</td>
+                        <td>실제 물리적 위치 확인</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                    <tr>
+                        <td>제3자 감사 보고서</td>
+                        <td>독립 감사 기관 보고서 요청</td>
+                        <td><span class="status-badge status-warning">확인 필요</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 최종 결론 -->
+        <div class="conclusion-box">
+            <h3>⚠️ 최종 결론 및 권고사항</h3>
+
+            <div style="margin-top: 1.5rem;">
+                <h4 style="color: var(--danger-color);">조사 결과</h4>
+                <p>의료 AI 회사로서 Gachi Wallet의 정당성을 뒷받침하는 <strong>증거가 전혀 발견되지 않았습니다.</strong></p>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <h4>기술적 평가</h4>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Local LLM, MCP, FHIR 통합, 프라이버시 보존 AI는 <strong>실제 기술</strong>입니다</li>
+                    <li>이미 오픈소스로 공개된 스택을 모바일 지갑 콘셉트로 포장한 것으로 추정됩니다</li>
+                    <li>"Gachi Wallet" 자체에 대한 모든 증거가 <strong>완전히 부재</strong>합니다</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 8px;">
+                <h4 style="color: var(--danger-color);">⛔ 권고사항</h4>
+                <table style="margin-top: 0.5rem;">
+                    <tr>
+                        <td style="width: 40%;"><strong>극도의 주의 필요</strong></td>
+                        <td>이 조직과의 어떠한 참여도 극히 신중해야 합니다</td>
+                    </tr>
+                    <tr>
+                        <td><strong>개인정보 공유 금지</strong></td>
+                        <td>건강 정보나 개인 정보를 절대 제공하지 마세요</td>
+                    </tr>
+                    <tr>
+                        <td><strong>금융 거래 금지</strong></td>
+                        <td>어떠한 금전적 거래도 하지 마세요</td>
+                    </tr>
+                    <tr>
+                        <td><strong>추가 조사 필요</strong></td>
+                        <td>직접적이고 검증 가능한 문서를 요구하세요</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전문가 상담</strong></td>
+                        <td>의료 IT 보안 전문가나 변호사와 상담하세요</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>본 보고서는 공개적으로 이용 가능한 정보를 기반으로 작성되었습니다.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem;">조사 일자: 2024년</p>
+    </footer>
+</body>
+</html>
