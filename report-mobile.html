@@ -773,32 +773,54 @@
         </div>
 
         <!-- 타임라인 -->
-        <div class="accordion">
+        <div class="accordion open">
             <div class="accordion-header" onclick="toggleAccordion(this)">
-                <h2>📅 타임라인</h2>
+                <h2>📅 기술 공개 타임라인</h2>
                 <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content">
                 <div class="accordion-body">
+                    <p style="font-size: 0.8rem; margin-bottom: 12px; color: var(--text-light);">MCP 공개 이후 다수의 오픈소스가 동일 아키텍처를 먼저 구현</p>
                     <div class="timeline">
                         <div class="timeline-item lab">
                             <div class="timeline-date">2025년 상반기 <span class="tag tag-verified">연구실</span></div>
-                            <p><strong>FedViTBloc, SoldierCare, RemoteCare</strong> 등 논문 다수 발표</p>
-                            <p>총 인용수: 43회 이상</p>
+                            <p><strong>FedViTBloc, SoldierCare, RemoteCare</strong> 등 논문 발표</p>
+                            <p>총 인용수: 43회+</p>
                         </div>
                         <div class="timeline-item lab">
                             <div class="timeline-date">2025년 <span class="tag tag-verified">연구실</span></div>
                             <p><strong>PureChain, LLM Ambulance</strong> 논문 발표</p>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2024년 11월 25일</div>
-                            <p><strong>Anthropic MCP</strong> 공개</p>
-                            <p>오픈소스 FHIR-MCP 프로젝트 등장</p>
+                        <div class="timeline-item" style="background: #faf5ff;">
+                            <div class="timeline-date">2024.11.25 <span class="tag" style="background: #e9d5ff; color: #6b21a8;">MCP 공개</span></div>
+                            <p><strong>Anthropic MCP</strong> 오픈소스 공개</p>
+                            <p>LLM-데이터 연동 표준 프로토콜</p>
+                        </div>
+                        <div class="timeline-item" style="background: #f0fdf4;">
+                            <div class="timeline-date">2024.12.20 <span class="tag tag-verified">오픈소스</span></div>
+                            <p><strong>azure-fhir-mcp-server</strong></p>
+                            <p>첫 FHIR-MCP 통합 프로젝트</p>
+                        </div>
+                        <div class="timeline-item" style="background: #f0fdf4;">
+                            <div class="timeline-date">2025년 초 <span class="tag tag-verified">오픈소스</span></div>
+                            <p><strong>health-record-mcp</strong> (Josh Mandel)</p>
+                            <p>SMART on FHIR + MCP 서버</p>
+                        </div>
+                        <div class="timeline-item" style="background: #f0fdf4;">
+                            <div class="timeline-date">2025 상반기~9월 <span class="tag tag-verified">오픈소스</span></div>
+                            <p><strong>WSO2, Momentum, Fhir-MCP</strong> 등</p>
+                            <p>5개+ 추가 프로젝트 공개</p>
                         </div>
                         <div class="timeline-item suspicious">
                             <div class="timeline-date">2025년 두바이 <span class="tag tag-unverified">Gachi</span></div>
                             <p><strong>Local LLM + MCP + FHIR</strong> 발표</p>
                             <p>회사 실체, 기술 문서 미확인</p>
+                            <p style="color: var(--accent); font-weight: 600; font-size: 0.7rem;">⚠️ 이미 공개된 오픈소스와 동일 구조</p>
+                        </div>
+                        <div class="timeline-item" style="background: #faf5ff;">
+                            <div class="timeline-date">2025년 12월 <span class="tag" style="background: #e9d5ff; color: #6b21a8;">표준화</span></div>
+                            <p><strong>MCP → Linux Foundation 기증</strong></p>
+                            <p>업계 표준 공식 채택</p>
                         </div>
                     </div>
                 </div>
@@ -930,19 +952,32 @@
         </div>
 
         <!-- 오픈소스 현황 -->
-        <div class="accordion">
+        <div class="accordion open">
             <div class="accordion-header" onclick="toggleAccordion(this)">
-                <h2>🌐 오픈소스 현황</h2>
+                <h2>🌐 이미 공개된 동일 아키텍처</h2>
                 <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content">
                 <div class="accordion-body">
-                    <p style="font-size: 0.85rem; margin-bottom: 12px;">동일한 아키텍처가 이미 오픈소스로 공개됨</p>
+                    <div class="info-card warning" style="margin-bottom: 12px;">
+                        <div class="info-card-title">💡 핵심 사실</div>
+                        <ul>
+                            <li>MCP: <strong>2024.11.25</strong> 오픈소스 공개</li>
+                            <li><strong>7개 이상</strong> FHIR-MCP 프로젝트 존재</li>
+                            <li>Microsoft, WSO2 등 <strong>이미 구현 완료</strong></li>
+                        </ul>
+                    </div>
+
+                    <p style="font-size: 0.85rem; margin-bottom: 12px; font-weight: 600;">GitHub 공개 프로젝트 (7개+)</p>
                     <div class="data-list">
                         <div class="data-item" style="border-left-color: var(--success);">
                             <div class="data-item-header">
-                                <span class="data-item-title">jmandel/health-record-mcp</span>
+                                <span class="data-item-title">health-record-mcp</span>
                                 <span class="tag tag-verified">검증됨</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">개발자</span>
+                                <span class="data-item-value">Josh Mandel (MS/Harvard)</span>
                             </div>
                             <div class="data-item-row">
                                 <span class="data-item-label">기능</span>
@@ -950,12 +985,30 @@
                             </div>
                             <div class="data-item-row">
                                 <span class="data-item-label">공개</span>
-                                <span class="data-item-value">2024년 12월</span>
+                                <span class="data-item-value">2025년 초</span>
                             </div>
                         </div>
                         <div class="data-item" style="border-left-color: var(--success);">
                             <div class="data-item-header">
-                                <span class="data-item-title">wso2/fhir-mcp-server</span>
+                                <span class="data-item-title">azure-fhir-mcp-server</span>
+                                <span class="tag tag-verified">검증됨</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">개발자</span>
+                                <span class="data-item-value">Erik Howard</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">기능</span>
+                                <span class="data-item-value">Azure FHIR → MCP</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">공개</span>
+                                <span class="data-item-value">2024년 12월 20일</span>
+                            </div>
+                        </div>
+                        <div class="data-item" style="border-left-color: var(--success);">
+                            <div class="data-item-header">
+                                <span class="data-item-title">fhir-mcp-server (WSO2)</span>
                                 <span class="tag tag-verified">검증됨</span>
                             </div>
                             <div class="data-item-row">
@@ -964,13 +1017,74 @@
                             </div>
                             <div class="data-item-row">
                                 <span class="data-item-label">공개</span>
-                                <span class="data-item-value">2025년 1월</span>
+                                <span class="data-item-value">2025년 상반기</span>
+                            </div>
+                        </div>
+                        <div class="data-item" style="border-left-color: var(--success);">
+                            <div class="data-item-header">
+                                <span class="data-item-title">Fhir-MCP</span>
+                                <span class="tag tag-verified">검증됨</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">개발자</span>
+                                <span class="data-item-value">Kushagra Dutta</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">기능</span>
+                                <span class="data-item-value">멀티 FHIR 서버 통합</span>
+                            </div>
+                        </div>
+                        <div class="data-item" style="border-left-color: var(--success);">
+                            <div class="data-item-header">
+                                <span class="data-item-title">fhir-mcp-server (Momentum)</span>
+                                <span class="tag tag-verified">검증됨</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">기능</span>
+                                <span class="data-item-value">FHIR CRUD, AI 문서 처리</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">공개</span>
+                                <span class="data-item-value">2025년 9월</span>
+                            </div>
+                        </div>
+                        <div class="data-item" style="border-left-color: var(--success);">
+                            <div class="data-item-header">
+                                <span class="data-item-title">+ 2개 추가 프로젝트</span>
+                                <span class="tag tag-verified">검증됨</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">프로젝트</span>
+                                <span class="data-item-value">fhir-mcp, MCP-on-FHIR</span>
                             </div>
                         </div>
                     </div>
-                    <div class="info-card" style="margin-top: 12px;">
-                        <div class="info-card-title">시사점</div>
-                        <p>Gachi Wallet이 주장하는 아키텍처는 이미 오픈소스로 누구나 사용 가능. 기존 프로젝트 기반 가능성.</p>
+
+                    <p style="font-size: 0.85rem; margin: 16px 0 12px; font-weight: 600;">아키텍처 매핑</p>
+                    <div class="data-list">
+                        <div class="data-item">
+                            <div class="data-item-row">
+                                <span class="data-item-label">Local LLM</span>
+                                <span class="data-item-value">Claude, Ollama + MCP</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">MCP Client</span>
+                                <span class="data-item-value">Claude Desktop, VS Code</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">MCP Server</span>
+                                <span class="data-item-value">health-record-mcp 등</span>
+                            </div>
+                            <div class="data-item-row">
+                                <span class="data-item-label">FHIR/EHR</span>
+                                <span class="data-item-value">HAPI FHIR, Epic API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card danger" style="margin-top: 12px;">
+                        <div class="info-card-title">⚠️ 핵심 시사점</div>
+                        <p>Gachi Wallet 아키텍처는 <strong>이미 오픈소스로 무료 공개</strong>된 표준 기술. MCP 공개 이후 전 세계 개발자들이 동일 구조를 구현했으며, <strong>독자 기술이 아님</strong>.</p>
                     </div>
                 </div>
             </div>
