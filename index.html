@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gachi Wallet 검증 보고서 - 사이트맵</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --danger-color: #dc2626;
+            --success-color: #16a34a;
+            --warning-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .report-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .report-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .report-info {
+            flex: 1;
+        }
+
+        .report-title {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .report-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .report-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 1rem;
+            flex-shrink: 0;
+        }
+
+        .badge-desktop {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-mobile {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .arrow-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-left: 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: #fef2f2;
+            border-left: 4px solid var(--danger-color);
+            color: #991b1b;
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .report-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .report-badge {
+                margin-left: 0;
+            }
+
+            .arrow-icon {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📋 Gachi Wallet 검증 보고서</h1>
+        <p>두바이 발표 내용에 대한 종합 검증 리포트</p>
+    </header>
+
+    <div class="container">
+        <div class="alert">
+            <span class="alert-icon">⚠️</span>
+            <span><strong>주의:</strong> 본 보고서들은 두바이 발표 내용에 대한 검증 자료입니다. 공식적인 법적 판단이 아닌 참고 자료로만 활용하세요.</span>
+        </div>
+
+        <div class="report-section">
+            <h2 class="section-title">📑 보고서 1: Gachi Wallet 검증</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Gachi Wallet의 실체와 주장에 대한 종합 검증 보고서</p>
+
+            <a href="report.html" class="report-card">
+                <div class="report-info">
+                    <div class="report-title">Gachi Wallet 검증 보고서</div>
+                    <div class="report-description">회사 실체, HIPAA 인증, 기술 주장에 대한 상세 분석</div>
+                </div>
+                <span class="report-badge badge-desktop">Desktop</span>
+                <span class="arrow-icon">→</span>
+            </a>
+
+            <a href="report-mobile.html" class="report-card">
+                <div class="report-info">
+                    <div class="report-title">Gachi Wallet 검증 보고서</div>
+                    <div class="report-description">모바일 최적화 버전</div>
+                </div>
+                <span class="report-badge badge-mobile">Mobile</span>
+                <span class="arrow-icon">→</span>
+            </a>
+        </div>
+
+        <div class="report-section">
+            <h2 class="section-title">🔍 보고서 2: 아키텍처 유사성 조사</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">MCP-FHIR 아키텍처와 기존 오픈소스 프로젝트 비교 분석</p>
+
+            <a href="report-investigation.html" class="report-card">
+                <div class="report-info">
+                    <div class="report-title">아키텍처 유사성 조사 보고서</div>
+                    <div class="report-description">7개+ 오픈소스 프로젝트와의 아키텍처 비교 및 타임라인 분석</div>
+                </div>
+                <span class="report-badge badge-desktop">Desktop</span>
+                <span class="arrow-icon">→</span>
+            </a>
+
+            <a href="report-investigation-mobile.html" class="report-card">
+                <div class="report-info">
+                    <div class="report-title">아키텍처 유사성 조사 보고서</div>
+                    <div class="report-description">모바일 최적화 버전 (아코디언 UI)</div>
+                </div>
+                <span class="report-badge badge-mobile">Mobile</span>
+                <span class="arrow-icon">→</span>
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>본 보고서는 공개된 정보를 바탕으로 작성되었습니다.</p>
+        <p style="margin-top: 0.5rem;">© 2025 Investigation Report</p>
+    </footer>
+</body>
+</html>
